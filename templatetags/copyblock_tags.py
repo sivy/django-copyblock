@@ -6,33 +6,41 @@ from django.conf import settings
 
 register = template.Library()
 
-copy_cache = {}
+CACHE = {}
+
+def get_file_contents(filepath):
+    fp = open(filepath, 'r')
+    content = fp.read()
+    fp.close()
+    return content
 
 class CopyBlockNode(Node):
-    def __init__(self, filepath, nocache):
-        print "copyblock node %s %s" % (filepath, nocache)
+    def __init__(self, filepath, nocache, nomarkdown):
         self.filepath = filepath
         self.nocache = nocache
+        self.nomarkdown = nomarkdown
 
     def render(self, context):
-        filepath = "%s/%s.markdown" % (settings.COPY_BLOCK_ROOT, self.filepath)
+        filepath = "%s/%s.markdown" % (settings.COPYBLOCK_ROOT, self.filepath)
         nocache = self.nocache
+        nomarkdown = self.nomarkdown
         
-        if nocache or filepath not in copy_cache:
+        if nocache or filepath not in CACHE:
             try:
-                fp = open(filepath, 'r')
-                content = fp.read()
-                fp.close()
-
-                output = markdown(content)
-                copy_cache[self.filepath] = output
-            except IOError, e:
+                get_file_contents(filepath)
+                
+                if nomarkdown:
+                    output = content
+                else:
+                    output = markdown(content)
+                CACHE[self.filepath] = output
+            except IOError:
                 import sys
                 exc_type, exc_value, exc_traceback = sys.exc_info()
                 output = '<!-- file %s not found -->' % filepath
         else:
-            output = copy_cache[self.filepath]
-        
+            output = CACHE[self.filepath]
+
         return output
 
 def copyblock(parser, token):
@@ -40,27 +48,32 @@ def copyblock(parser, token):
     Outputs the contents of a given copy file into the page.
 
     Like a simple "include" tag, the ``copyblock`` tag includes the contents
-    of another file -- which must exist under settings.COPY_BLOCK_ROOT --
+    of another file -- which must exist under settings.COPYBLOCK_ROOT --
     in the current page, after running it through markdown::
 
-        {% copyblock welcome_message nocache=True %}
+        {% copyblock welcome_message %}
 
         {% copyblock help/how_to_use %}
 
     If the optional "nocache" parameter is given, the copyblock cache will not be consulted,
-    otherwise, an included and processed file will be cached while the app is running.
+    otherwise, the file output will be read from the cache to save disk IO. Processed file
+    output is cached while the app is running.
+
+        {% copyblock welcome nocache %}
+        
+    If the content should not be processed as markdown, the "nomarkdown" parameter can be
+    passed to the tag:
+
+        {% copyblock welcome nomarkdown %}
     
     """
-    bits = token.contents.split()
+    args = token.contents.split()
     nocache = False
-    if len(bits) not in (2, 3):
-        raise TemplateSyntaxError("'ssi' tag takes one argument: the path to"
-                                  " the file to be included")
-    if len(bits) == 3:
-        if bits[2] == 'nocache':
-            nocache = True
-        else:
-            raise TemplateSyntaxError("Second (optional) argument to %s tag"
-                                      " must be 'parsed'" % bits[0])
-    return CopyBlockNode(bits[1], nocache)
+    nomarkdown = False
+    if 'nocache' in args:
+        nocache=True
+    if 'nomarkdown' in args:
+        nomarkdown=True
+    return CopyBlockNode(bits[1], nocache, nomarkdown)
+
 copyblock = register.tag(copyblock)
