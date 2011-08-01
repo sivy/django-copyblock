@@ -70,10 +70,12 @@ def copyblock(parser, token):
     args = token.contents.split()
     nocache = False
     nomarkdown = False
+
     if 'nocache' in args:
         nocache=True
     if 'nomarkdown' in args:
         nomarkdown=True
+
     return CopyBlockNode(bits[1], nocache, nomarkdown)
 
 copyblock = register.tag(copyblock)
