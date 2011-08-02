@@ -17,7 +17,7 @@ setup(
     author_email='steve@wallrazer.com',
     description='Manage website copy as a directory of markdown-formatted files. Insert files as copy into your Django templates.',
     license='MIT License',
-    packages=['copyblock'],
+    packages=find_packages(),
     keywords='django copy markdown',
     url='http://github.com/sivy/django-copyblock/',
     long_description=ld,

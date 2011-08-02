@@ -78,6 +78,6 @@ def copyblock(parser, token):
     if 'nomarkdown' in args:
         nomarkdown=True
 
-    return CopyBlockNode(bits[1], nocache, nomarkdown)
+    return CopyBlockNode(args[1], nocache, nomarkdown)
 
 copyblock = register.tag(copyblock)
