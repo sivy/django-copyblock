@@ -28,3 +28,17 @@ In your templates:
 
     {% copyblock filename %}
 
+This will do the following:
+
+    * Look for copy/dir/filename.markdown
+    * Run the file filename.markdown through markdown
+    * Cache the output for future lookups
+    * Insert the output in the rendered template
+
+ Right now, copyblock only does markdown. If your copy is not in markdown (plain text), you can pass in the `nomarkdown` parameter to the template tag:
+
+    {% copyblock filename nomarkdown %}
+
+ Also, if you don't want to use the in-memory cache (load copy from file every time, good for copy editing), pass in the `nocache` parameter:
+
+    {% copyblock filename nocache %}
