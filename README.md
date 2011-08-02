@@ -46,3 +46,4 @@ This will do the following:
 ## @TODO
 
 * Add support for other text formats, or even HTML (suggestions, request? <steve@wallrazer.com>)
+* A view that will render any file in `settings.COPYBLOCK_ROOT` through the site's base template*`base.html`) under a path determined by `urls.py`. IE, `/path/to/copy/dir/foo.markdown` would be viewable at `yoursite.com/somepath/foo`. Or, something like that.
