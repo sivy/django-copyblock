@@ -7,11 +7,12 @@ from setuptools import setup
 
 setup(
     name='django-copyblock',
-    version='0.3',
+    version='0.4',
     author='Steve Ivy',
     author_email='steve@wallrazer.com',
     description='Manage website copy as a directory of markdown-formatted files. Insert files as copy into your Django templates.',
     license='MIT License',
+    packages=find_packages(),
     requires=(),
     keywords='django copy markdown',
     url='http://github.com/sivy/django-copyblock/',
