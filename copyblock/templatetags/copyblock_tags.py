@@ -29,7 +29,7 @@ class CopyBlockNode(Node):
            or not settings.COPYBLOCK_CACHE \
            or filepath not in CACHE:
             try:
-                get_file_contents(filepath)
+                content = get_file_contents(filepath)
                 
                 if nomarkdown:
                     output = content
