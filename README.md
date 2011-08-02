@@ -43,6 +43,10 @@ This will do the following:
 
     {% copyblock filename nocache %}
 
+When working on site copy, it can be helpful to turn off the Copyblock cache completely with (in `settings.py`):
+
+    COPYBLOCK_CACHE=False
+
 ## @TODO
 
 * Add support for other text formats, or even HTML (suggestions, request? <steve@wallrazer.com>)

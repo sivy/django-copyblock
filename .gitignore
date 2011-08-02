@@ -1,2 +1,6 @@
 *.pyc
 .__DSStore
+fabfile.py
+.idea
+dist
+*.egg-info

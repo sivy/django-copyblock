@@ -25,7 +25,9 @@ class CopyBlockNode(Node):
         nocache = self.nocache
         nomarkdown = self.nomarkdown
         
-        if nocache or filepath not in CACHE:
+        if nocache \
+           or not settings.COPYBLOCK_CACHE \
+           or filepath not in CACHE:
             try:
                 get_file_contents(filepath)
                 
