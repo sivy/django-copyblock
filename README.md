@@ -12,7 +12,7 @@ From Pypi:
 
 From [Github](http://github.comsivy/django-copyblock):
 
-    % pip install -e git://github.com/sivy/django-copyblock.git
+    % pip install -e git://github.com/sivy/django-copyblock.git#egg=copyblock
 
 ## Usage
 
