@@ -30,10 +30,10 @@ In your templates:
 
 This will do the following:
 
-    * Look for copy/dir/filename.markdown
-    * Run the file filename.markdown through markdown
-    * Cache the output for future lookups
-    * Insert the output in the rendered template
+* Look for copy/dir/filename.markdown
+* Run the file filename.markdown through markdown
+* Cache the output for future lookups
+* Insert the output in the rendered template
 
  Right now, copyblock only does markdown. If your copy is not in markdown (plain text), you can pass in the `nomarkdown` parameter to the template tag:
 
