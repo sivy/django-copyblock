@@ -24,3 +24,7 @@ Add this path to your settings file:
 
     COPYBLOCK_ROOT='path/to/your/copy/dir'
 
+In your templates:
+
+    {% copyblock filename %}
+
