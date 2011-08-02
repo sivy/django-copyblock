@@ -42,3 +42,7 @@ This will do the following:
  Also, if you don't want to use the in-memory cache (load copy from file every time, good for copy editing), pass in the `nocache` parameter:
 
     {% copyblock filename nocache %}
+
+# @TODO
+
+* Add support for other text formats, or even HTML (suggestions, request? <steve@wallrazer.com>)
