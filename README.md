@@ -47,7 +47,29 @@ When working on site copy, it can be helpful to turn off the Copyblock cache com
 
     COPYBLOCK_CACHE=False
 
+## Serving Copyblock Files
+
+Copyblock provides a simple app that will serve Markdown files in your COPYBLOCK_ROOT on the url endpoint of your choosing:
+
+In `settings.py`, set the template name (in your main application) to render markdown files through:
+
+    COPYBLOCK_TEMPLATE='template.html'
+
+This template should contain an `output` template variable, like so:
+
+    {{ output|safe }}
+
+In `urls.py`, add:
+
+    urlpatterns += patterns('',
+        url(r'^site/(?P<path>.+)',   include('copyblock.urls',  namespace="copyblock",  app_name='copyblock')),
+    )
+
+The path can be whatever you choose.
+
+Now, accessing http://mysite.example.com/site/name-of-markdown-file in your browser will load the content of the 
+
 ## @TODO
 
 * Add support for other text formats, or even HTML (suggestions, request? <steve@wallrazer.com>)
-* A view that will render any file in `settings.COPYBLOCK_ROOT` through the site's base template (`base.html`) under a path determined by `urls.py`. IE, `/path/to/copy/dir/foo.markdown` would be viewable at `yoursite.com/somepath/foo`. Or, something like that.
+* A view that will render any file in `settings.COPYBLOCK_ROOT` through the site's base template (`base.html`) under a path determined by `urls.py`. IE, `/path/to/copy/dir/foo.markdown` would be viewable at `yoursite.com/somepath/foo`. Or, something like that. [DONE]
