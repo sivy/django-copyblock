@@ -22,6 +22,7 @@ setup(
     keywords='django copy markdown',
     url='http://github.com/sivy/django-copyblock/',
     long_description=ld,
+    long_description=read('README'),
     classifiers=[
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
