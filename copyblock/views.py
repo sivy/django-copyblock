@@ -25,7 +25,7 @@ def serve(request, path):
         return HttpResponseNotFound()
 
     # run through markdown?
-    output = copydown(filepath, nocache=nocache, nomarkdown=nomarkdown)
+    output = copydown(filepath, nocache=True)
     print output
 
     # run as template? which first?
