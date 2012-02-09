@@ -4,15 +4,11 @@ from django.template.base import TemplateSyntaxError, VariableDoesNotExist, BLOC
 from markdown import markdownFromFile, markdown
 from django.conf import settings
 
+from copyblock.utils import copydown
+
 register = template.Library()
 
 CACHE = {}
-
-def get_file_contents(filepath):
-    fp = open(filepath, 'r')
-    content = fp.read()
-    fp.close()
-    return content
 
 class CopyBlockNode(Node):
     def __init__(self, filepath, nocache, nomarkdown):
@@ -25,23 +21,25 @@ class CopyBlockNode(Node):
         nocache = self.nocache
         nomarkdown = self.nomarkdown
         
-        if nocache \
-           or not settings.COPYBLOCK_CACHE \
-           or filepath not in CACHE:
-            try:
-                content = get_file_contents(filepath)
-                
-                if nomarkdown:
-                    output = content
-                else:
-                    output = markdown(content)
-                CACHE[self.filepath] = output
-            except IOError:
-                import sys
-                exc_type, exc_value, exc_traceback = sys.exc_info()
-                output = '<!-- file %s not found -->' % filepath
-        else:
-            output = CACHE[self.filepath]
+#        if nocache \
+#           or not settings.COPYBLOCK_CACHE \
+#           or filepath not in CACHE:
+#            try:
+#                content = get_file_contents(filepath)
+#
+#                if nomarkdown:
+#                    output = content
+#                else:
+#                    output = markdown(content)
+#                CACHE[self.filepath] = output
+#            except IOError:
+#                import sys
+#                exc_type, exc_value, exc_traceback = sys.exc_info()
+#                output = '<!-- file %s not found -->' % filepath
+#        else:
+#            output = CACHE[self.filepath]
+
+        output = copydown(filepath, nocache=nocache, nomarkdown=nomarkdown)
 
         return output
 

@@ -1,4 +1,4 @@
 VERSION = (0, # pre-final release
-           4, # feature dot-release
-           9  # fiddly bits
+           5, # feature dot-release
+           1  # fiddly bits
     )
