@@ -2,7 +2,9 @@
 
 Copyblock came out of a desire of mine to separate the copy for a site I'm working on from the site templates. Things like welcome messages, intro copy for forms, etc. This is copy I'd like to be able to tweak easily over time without having to redeploy the entire site to make it happen. What I wanted was a system kindof like gettext, but without .po files, the weird syntax, and a separete app to generate the right files.
 
-What I wanted was really simple: a directory of text files, optionally in [Markdown](http://daringfireball.net/projects/markdown), that could be inserted into my app templates with a template tag. That's what Copyblock does.
+![markdown-mark](http://static.monkinetic.com/django-copyblock/md.png)
+
+What I wanted was really simple: a directory of text files, optionally in [Markdown](http://daringfireball.net/projects/markdown) , that could be inserted into my app templates with a template tag. That's what Copyblock does.
 
 ## Installation
 
@@ -67,7 +69,7 @@ In `urls.py`, add:
 
 The path can be whatever you choose.
 
-Now, accessing http://mysite.example.com/site/name-of-markdown-file in your browser will load the content of the 
+Now, accessing http://mysite.example.com/site/name-of-markdown-file in your browser will load the content of the
 
 ## @TODO
 
